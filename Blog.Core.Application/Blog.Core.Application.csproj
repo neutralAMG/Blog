@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blog.Core.Domain\Blog.Core.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="Dtos\Identity\" />
+    <Folder Include="Dtos\Persistance\" />
+    <Folder Include="Interfaces\Contracts\Identity\" />
+    <Folder Include="Interfaces\Contracts\Persistance\" />
+    <Folder Include="Features\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Interfaces\Repositories\Identity\" />
+    <Folder Include="Interfaces\Repositories\Persistance\" />
+    <Folder Include="Models\" />
+    <Folder Include="Services\Identity\" />
+    <Folder Include="Services\Persistance\" />
+  </ItemGroup>
+
+</Project>
