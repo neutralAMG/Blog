@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\" />
     <Folder Include="Dtos\Identity\" />
     <Folder Include="Dtos\Persistance\" />
     <Folder Include="Interfaces\Contracts\Identity\" />
@@ -19,7 +18,6 @@
     <Folder Include="Features\" />
     <Folder Include="Extensions\" />
     <Folder Include="Interfaces\Repositories\Identity\" />
-    <Folder Include="Interfaces\Repositories\Persistance\" />
     <Folder Include="Models\" />
     <Folder Include="Services\Identity\" />
     <Folder Include="Services\Persistance\" />
