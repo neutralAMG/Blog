@@ -9,7 +9,7 @@ namespace Blog.Infraestructure.Identity.Core
 	}
 	public interface IBaseUpdateAuditEntity
 	{
-        public string LatUpdatedBy { get; set; }
+        public string LastUpdatedBy { get; set; }
         public DateTime LastUpdateDate { get; set; }
     }
 	public interface IBaseSoftDeleteEntity

@@ -7,6 +7,6 @@ namespace Blog.Core.Application.Interfaces.Repositories.Persistance
 {
 	public interface IBlogRepository : IBaseCompleteRepository<UserBlog>
 	{
-		Task<IEnumerable<UserBlog>> GetByCaregoryId(int categoryId);
+		Task<List<UserBlog>> GetByCaregoryId(int categoryId);
 	}
 }

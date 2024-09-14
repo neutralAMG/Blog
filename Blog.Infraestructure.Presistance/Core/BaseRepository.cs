@@ -19,15 +19,16 @@ namespace Blog.Infraestructure.Presistance.Core
 			_context = context;
 			_entities = _context.Set<TEntity>();
 		}
-		public async Task<bool> ExitsAsync(Expression<Func<TEntity, bool>> filter)
+		public virtual async Task<bool> ExitsAsync(Expression<Func<TEntity, bool>> filter)
 		{
 			return await _entities.AnyAsync(filter);
 		}
 
-		public async Task<bool> SaveAsync(TEntity entity)
+		public virtual async Task<bool> SaveAsync(TEntity entity)
 		{
 			try
 			{
+				entity.DateCreated = DateTime.UtcNow;
 				await _entities.AddAsync(entity);
 				await _context.SaveChangesAsync();
 				return true;
@@ -37,7 +38,7 @@ namespace Blog.Infraestructure.Presistance.Core
 				return false;
 			}
 		}
-		public async Task<bool> DeleteAsync(int id)
+		public virtual async Task<bool> DeleteAsync(int id)
 		{
 
 			try
@@ -68,19 +69,25 @@ namespace Blog.Infraestructure.Presistance.Core
 		public BaseCompleteRepository(ApplicationContext context) : base(context)
 		{
 			_context = context;
+			_entities = _context.Set<TEntity>();
 		}
 
-		public async Task<IEnumerable<TEntity>> GetAllAsync()
+		public virtual async Task<List<TEntity>> GetAllAsync()
 		{	
-			return await Task.FromResult( _entities.AsEnumerable());
+			return await _entities.ToListAsync();
 		}
 
-		public async Task<TEntity> GetByIdAsync(int id)
+		public virtual async Task<TEntity> GetByIdAsync(int id)
 		{
 			return await _entities.FindAsync(id);
 		}
 
-		public async Task<bool> UpdateAsync(TEntity entity)
+		public virtual IQueryable<TEntity> GetQueribleEntity()
+		{
+			return _entities;
+		}
+
+		public virtual async Task<bool> UpdateAsync(TEntity entity)
 		{
 			try
 			{
@@ -93,6 +100,39 @@ namespace Blog.Infraestructure.Presistance.Core
 			{
 				return false;
 			}
+		}
+
+	}
+
+	public class BaseSoftDeleteCompleteRepository<TEntity> : BaseCompleteRepository<TEntity>
+		where TEntity : BaseEntity, IBaseSoftDeleteEntity
+	{
+		private readonly ApplicationContext _context;
+		private readonly DbSet<TEntity> _entities;
+
+		public BaseSoftDeleteCompleteRepository(ApplicationContext context) : base(context)
+		{
+			_context = context;
+			_entities = _context.Set<TEntity>();
+		}
+		public override async Task<bool> DeleteAsync(int id )
+		{
+			TEntity entityToBeDeleted = await _entities.FindAsync(id);
+
+			if (entityToBeDeleted == null) return false;
+
+			entityToBeDeleted.IsDeleted = true;
+
+			entityToBeDeleted.DeleteTime = DateTime.UtcNow;
+
+			_entities.Attach(entityToBeDeleted);
+
+			_entities.Entry(entityToBeDeleted).State = EntityState.Modified;
+
+		    await _context.SaveChangesAsync();
+
+			return true;
+
 		}
 	}
 }

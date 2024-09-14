@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Blog.Core.Domain.Entities
 {
-	public class Post : BaseEntity, IBaseSoftDeleteEntity
+	public class Post : BaseEntity, IBaseSoftDeleteEntity ,    IBaseUpdateAuditEntity
 	{
         public int BlogId  { get; set; }
         [StringLength(70)]
@@ -14,7 +14,10 @@ namespace Blog.Core.Domain.Entities
         public bool IsDeleted { get; set; }
         public string DeletedBy { get; set; }
         public DateTime DeleteTime { get; set; }
-        [ForeignKey("BlogId")]
+		public string LastUpdatedBy { get; set; }
+		public DateTime LastUpdateDate { get; set; }
+
+		[ForeignKey("BlogId")]
         public UserBlog Blog { get; set; }
         public IList<Comment> Comments { get; set; }
         public IList<PostLike> PostLikes { get; set; }

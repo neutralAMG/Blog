@@ -11,7 +11,7 @@ namespace Blog.Core.Domain.Entities
         public string Name { get; set; }
 		[StringLength(180)]
 		public string Description { get; set; }
-        public string LatUpdatedBy { get; set; }
+        public string LastUpdatedBy { get; set; }
         public DateTime LastUpdateDate { get; set; }
         public bool IsDeleted { get; set; }
         public string DeletedBy { get; set; }

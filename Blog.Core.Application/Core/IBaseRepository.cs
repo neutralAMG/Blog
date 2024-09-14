@@ -16,7 +16,8 @@ namespace Blog.Core.Application.Core
 	public interface IBaseCompleteRepository<TEntity> : IBaseRepository<TEntity>
 		where TEntity : BaseEntity
 	{
-		Task<IEnumerable<TEntity>> GetAllAsync();
+		Task<List<TEntity>> GetAllAsync();
+		IQueryable<TEntity> GetQueribleEntity();
 		Task<TEntity> GetByIdAsync(int id);
 		Task<bool> UpdateAsync(TEntity entity);
 	}
