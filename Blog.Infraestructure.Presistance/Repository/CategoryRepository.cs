@@ -24,7 +24,6 @@ namespace Blog.Infraestructure.Presistance.Repository
 			categoryToBeUpdated.Description = entity.Description;
 			categoryToBeUpdated.LastUpdateDate = DateTime.UtcNow;
 			categoryToBeUpdated.LastUpdatedBy = entity.LastUpdatedBy;
-
 			return await base.UpdateAsync(categoryToBeUpdated);
 		}
 	}
