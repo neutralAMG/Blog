@@ -58,4 +58,76 @@ namespace Blog.Core.Application.Core
 
 
 	}
+
+	public class BaseCompleteService<TSaveModel, TModel, TEntity> : BaseService<TSaveModel, TEntity>, IBaseCompleteService<TSaveModel, TModel>
+		where TSaveModel : class
+		where TModel : class
+		where TEntity : BaseEntity
+	{
+        private readonly IBaseCompleteRepository<TEntity> _baseCompleteRepository;
+        private readonly IMapper _mapper;
+
+        public BaseCompleteService(IBaseCompleteRepository<TEntity> baseCompleteRepository, IMapper mapper) : base(baseCompleteRepository, mapper)
+        {
+            _baseCompleteRepository = baseCompleteRepository;
+            _mapper = mapper;
+        }
+
+        public async Task<Result<List<TModel>>> GetAllAsync()
+        {
+			try
+			{
+				List<TEntity> entitiesGetted = await _baseCompleteRepository.GetAllAsync();
+
+				if (entitiesGetted == null)
+					return ErrorTypess.OperationFaild.Because("The entities list was not found");
+
+				return _mapper.Map<List<TModel>>(entitiesGetted);
+			}
+			catch
+			{
+				return ErrorTypess.Exeption.Because("Critical error while trying to get the entities");
+			}
+        }
+
+        public async Task<Result<TModel>> GetByIdAsync(int id)
+        {
+			try
+			{
+				if (id <= 0)
+					return ErrorTypess.ValidationMissMatch.Because("The id was ether null or invalid");
+
+				TEntity entityGetted = await _baseCompleteRepository.GetByIdAsync(id);
+
+				if (entityGetted == null)
+					return ErrorTypess.ValidationMissMatch.Because("The entity was not found");
+
+				return _mapper.Map<TModel>(entityGetted);
+			}
+			catch
+			{
+				return ErrorTypess.Exeption.Because("Critical error while getting the entity");
+			}
+        }
+
+        public async Task<Result> UpdateAsync(TSaveModel entity)
+        {
+			try
+			{
+				if (entity == null)
+					return ErrorTypess.ValidationMissMatch.Because("the entity to be save cant be empty");
+
+				TEntity entityToBeUpdated = _mapper.Map<TEntity>(entity);
+
+				bool IsUpdateOperationASuccess = await _baseCompleteRepository.UpdateAsync(entityToBeUpdated);
+
+				return !IsUpdateOperationASuccess ? ErrorTypess.OperationFaild.Because("Error while trying to update the entity") :
+					Result.Success("The entity was updated successfully");
+			}
+			catch
+			{
+				return ErrorTypess.Exeption.Because("Critical error while trying to update the entity");
+			}
+        }
+    }
 }

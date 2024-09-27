@@ -38,7 +38,7 @@ namespace Blog.Infraestructure.Presistance.Context
 			
 			base.OnModelCreating(modelBuilder);
 			modelBuilder.Entity<UserBlog>(b =>{
-				
+				b.HasKey(b => b.Id);
 			});
 		}
 	}
