@@ -5,6 +5,8 @@ namespace Blog.Core.Application.Features.Application.Blogs.Interfaces
 {
     public interface IBlogRepository : IBaseCompleteRepository<UserBlog>
     {
-        Task<List<UserBlog>> GetByCaregoryId(int categoryId);
+        Task<List<UserBlog>> GetByCaregoryIdAsync(int categoryId);
+        Task<List<UserBlog>> GetUserBlogAsync(string userId);
+
     }
 }

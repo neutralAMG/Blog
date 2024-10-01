@@ -23,7 +23,7 @@ namespace Blog.Infraestructure.Presistance.Repository
 				.Include(b => b.BlogCategories).ToListAsync();
 		}
 
-		public async Task<List<UserBlog>> GetByCaregoryId(int categoryId)
+		public async Task<List<UserBlog>> GetByCaregoryIdAsync(int categoryId)
 		{
 			return await _context.UserBlogs.AsSplitQuery()
 				.Include(b => b.BlogFavorites)
@@ -46,6 +46,14 @@ namespace Blog.Infraestructure.Presistance.Repository
 				.Include(b => b.BlogFavorites)
 				.Include(b => b.BlogCategories)
 				.Include(b => b.Posts);
+		}
+
+		public async Task<List<UserBlog>> GetUserBlogAsync(string userId)
+		{
+			return await _context.UserBlogs.AsSplitQuery()
+				.Include(b => b.BlogFavorites)
+				.Include(b => b.BlogCategories)
+				.Include(b => b.Posts).Where(b => b.UserId == userId).ToListAsync();
 		}
 
 		public override async Task<bool> UpdateAsync(UserBlog entity)
