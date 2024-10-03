@@ -7,14 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Application\Blogs\Dtos\**" />
+    <EmbeddedResource Remove="Features\Application\Blogs\Dtos\**" />
+    <None Remove="Features\Application\Blogs\Dtos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Blog.Core.Domain\Blog.Core.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Dtos\Identity\" />
     <Folder Include="Dtos\Persistance\" />
-    <Folder Include="Features\Application\Blogs\Dtos\" />
-    <Folder Include="Features\Users\" />
+    <Folder Include="Features\Application\Blogs\BlogCategories\Models\" />
+    <Folder Include="Features\Application\Blogs\BlogFavorites\Models\" />
+    <Folder Include="Features\Application\Pots\PostLikes\Models\" />
+    <Folder Include="Features\Application\Pots\PostList\Models\" />
+    <Folder Include="Features\Application\Pots\PostTags\Models\" />
+    <Folder Include="Features\Application\Tags\Models\" />
+    <Folder Include="Features\Application\Tags\Interfaces\" />
     <Folder Include="Interfaces\Contracts\Identity\" />
     <Folder Include="Interfaces\Contracts\Persistance\" />
     <Folder Include="Interfaces\Repositories\Identity\" />
@@ -25,6 +36,9 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

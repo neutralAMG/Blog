@@ -1,4 +1,4 @@
-﻿using Blog.Core.Application.Features.Application.Blogs.Interfaces;
+﻿using Blog.Core.Application.Features.Application.Blogs.Blogs.Interfaces;
 using Blog.Core.Domain.Entities;
 using Blog.Infraestructure.Presistance.Context;
 using Blog.Infraestructure.Presistance.Core;

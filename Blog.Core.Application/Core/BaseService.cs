@@ -19,7 +19,7 @@ namespace Blog.Core.Application.Core
 			_baseRepository = baseRepository;
 			_mapper = mapper;
 		}		
-		public async Task<Result> SaveAsync(TSaveModel saveModel)
+		public virtual async Task<Result> SaveAsync(TSaveModel saveModel)
 		{
 			try
 			{
@@ -38,7 +38,7 @@ namespace Blog.Core.Application.Core
 				return ErrorTypess.Exeption.Because("Critical error while saving the entity to the database");
 			}
 		}
-        public async Task<Result> DeleteAsync(int id)
+        public virtual async Task<Result> DeleteAsync(int id)
 		{
 			try
 			{
@@ -73,7 +73,7 @@ namespace Blog.Core.Application.Core
             _mapper = mapper;
         }
 
-        public async Task<Result<List<TModel>>> GetAllAsync()
+        public virtual async Task<Result<List<TModel>>> GetAllAsync()
         {
 			try
 			{
@@ -90,7 +90,7 @@ namespace Blog.Core.Application.Core
 			}
         }
 
-        public async Task<Result<TModel>> GetByIdAsync(int id)
+        public virtual async Task<Result<TModel>> GetByIdAsync(int id)
         {
 			try
 			{
@@ -110,7 +110,7 @@ namespace Blog.Core.Application.Core
 			}
         }
 
-        public async Task<Result> UpdateAsync(TSaveModel entity)
+        public virtual async Task<Result> UpdateAsync(TSaveModel entity)
         {
 			try
 			{

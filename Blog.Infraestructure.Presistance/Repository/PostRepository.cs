@@ -1,6 +1,4 @@
-﻿
-
-using Blog.Core.Application.Interfaces.Repositories.Persistance;
+﻿using Blog.Core.Application.Features.Application.Pots.Pots.Interfaces;
 using Blog.Core.Domain.Entities;
 using Blog.Infraestructure.Presistance.Context;
 using Blog.Infraestructure.Presistance.Core;
@@ -8,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Infraestructure.Presistance.Repository
 {
-	public class PostRepository : BaseSoftDeleteCompleteRepository<Post>, IPostRepository
+    public class PostRepository : BaseSoftDeleteCompleteRepository<Post>, IPostRepository
 	{
 		private readonly ApplicationContext _context;
 

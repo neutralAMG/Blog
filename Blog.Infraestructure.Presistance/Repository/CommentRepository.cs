@@ -1,4 +1,4 @@
-﻿using Blog.Core.Application.Interfaces.Repositories.Persistance;
+﻿using Blog.Core.Application.Features.Application.Comments.Comments.Interfaces;
 using Blog.Core.Domain.Entities;
 using Blog.Infraestructure.Presistance.Context;
 using Blog.Infraestructure.Presistance.Core;
@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Infraestructure.Presistance.Repository
 {
-	public class CommentRepository : BaseCompleteRepository<Comment>, ICommentRepository
+    public class CommentRepository : BaseCompleteRepository<Comment>, ICommentRepository
 	{
 		private readonly ApplicationContext _context;
 
@@ -19,7 +19,7 @@ namespace Blog.Infraestructure.Presistance.Repository
 		{
 			return await _context.Comments.AsSplitQuery()
 				.Include(c => c.CommentsReplies)
-				.Include(c => c.CommentLikes).ToListAsync();
+				.Include(c => c.CommentLikes).OrderByDescending(c => c.DateCreated).ToListAsync();
 		}
 
 		public override async Task<Comment> GetByIdAsync(int id)
@@ -29,11 +29,19 @@ namespace Blog.Infraestructure.Presistance.Repository
 				.Include(c => c.CommentLikes).FirstOrDefaultAsync(c => c.Id == id);
 		}
 
-		public override IQueryable<Comment> GetQueribleEntity()
+        public async Task<List<Comment>> GetCommentsByPostId(int postId)
+        {
+            return await _context.Comments.AsSplitQuery()
+            .Include(c => c.CommentsReplies)
+            .Include(c => c.CommentLikes).Where(c => c.PostId == postId).OrderByDescending(c => c.DateCreated).ToListAsync();
+        }
+
+        public override IQueryable<Comment> GetQueribleEntity()
 		{
 			return _context.Comments.AsSplitQuery()
 				.Include(c => c.CommentsReplies)
-				.Include(c => c.CommentLikes);
+				.Include(c => c.CommentLikes)
+				.OrderByDescending(c => c.DateCreated);
 		}
 
 		public override async Task<bool> UpdateAsync(Comment entity)

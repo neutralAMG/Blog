@@ -1,4 +1,4 @@
-﻿using Blog.Core.Application.Interfaces.Repositories.Persistance;
+﻿using Blog.Core.Application.Features.Application.Comments.CommentLikes.Interfaces;
 using Blog.Core.Domain.Entities;
 using Blog.Infraestructure.Presistance.Context;
 using Blog.Infraestructure.Presistance.Core;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Infraestructure.Presistance.Repository
 {
-	public class CommentLikeRepository : BaseRepository<CommentLike>, ICommentLikeRepositiory
+    public class CommentLikeRepository : BaseRepository<CommentLike>, ICommentLikeRepositiory
 	{
 		private readonly ApplicationContext _context;
 

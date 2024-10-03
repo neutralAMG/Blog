@@ -1,7 +1,7 @@
 ﻿using Blog.Core.Application.Core;
 using Blog.Core.Domain.Entities;
 
-namespace Blog.Core.Application.Features.Application.Blogs.Interfaces
+namespace Blog.Core.Application.Features.Application.Blogs.Blogs.Interfaces
 {
     public interface IBlogRepository : IBaseCompleteRepository<UserBlog>
     {
