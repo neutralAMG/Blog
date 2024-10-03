@@ -1,4 +1,4 @@
-﻿using Blog.Core.Application.Features.Application.Pots.PostList.Interfaces;
+﻿using Blog.Core.Application.Features.Application.Pots.PostLists.Interfaces;
 using Blog.Core.Domain.Entities;
 using Blog.Infraestructure.Presistance.Context;
 using Blog.Infraestructure.Presistance.Core;

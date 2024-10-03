@@ -22,10 +22,7 @@
     <Folder Include="Features\Application\Blogs\BlogCategories\Models\" />
     <Folder Include="Features\Application\Blogs\BlogFavorites\Models\" />
     <Folder Include="Features\Application\Pots\PostLikes\Models\" />
-    <Folder Include="Features\Application\Pots\PostList\Models\" />
     <Folder Include="Features\Application\Pots\PostTags\Models\" />
-    <Folder Include="Features\Application\Tags\Models\" />
-    <Folder Include="Features\Application\Tags\Interfaces\" />
     <Folder Include="Interfaces\Contracts\Identity\" />
     <Folder Include="Interfaces\Contracts\Persistance\" />
     <Folder Include="Interfaces\Repositories\Identity\" />

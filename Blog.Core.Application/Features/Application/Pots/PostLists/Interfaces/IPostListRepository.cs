@@ -2,7 +2,7 @@
 using Blog.Core.Domain.Entities;
 
 
-namespace Blog.Core.Application.Features.Application.Pots.PostList.Interfaces
+namespace Blog.Core.Application.Features.Application.Pots.PostLists.Interfaces
 {
     public interface IPostListRepository : IBaseRepository<PostList>
     {

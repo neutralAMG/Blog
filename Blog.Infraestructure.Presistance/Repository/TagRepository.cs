@@ -1,11 +1,11 @@
-﻿using Blog.Core.Application.Interfaces.Repositories.Persistance;
+﻿using Blog.Core.Application.Features.Application.Tags.Interfaces;
 using Blog.Core.Domain.Entities;
 using Blog.Infraestructure.Presistance.Context;
 using Blog.Infraestructure.Presistance.Core;
 
 namespace Blog.Infraestructure.Presistance.Repository
 {
-	public class TagRepository : BaseSoftDeleteCompleteRepository<Tag>, ITagRepository
+    public class TagRepository : BaseSoftDeleteCompleteRepository<Tag>, ITagRepository
 	{
 		private readonly ApplicationContext _context;
 
