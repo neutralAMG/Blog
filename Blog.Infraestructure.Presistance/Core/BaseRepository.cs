@@ -4,6 +4,7 @@ using Blog.Core.Application.Core;
 using Blog.Infraestructure.Identity.Core;
 using Blog.Infraestructure.Presistance.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
 namespace Blog.Infraestructure.Presistance.Core
@@ -91,10 +92,23 @@ namespace Blog.Infraestructure.Presistance.Core
 		{
 			try
 			{
+				EntityEntry<TEntity> entry = _entities.Entry(entity);
+
+				if (entry.OriginalValues["RowVersion"] == null)
+					throw new InvalidOperationException("Row version is not available for concurrency change");
+
+				byte[] currentRowVersion = entry.Entity.RowVersion;
+
+                entry.OriginalValues["RowVersion"] = currentRowVersion;
+
 				_entities.Attach(entity);
-				_entities.Entry(entity).State = EntityState.Modified;
+                entry.State = EntityState.Modified;
 				await _context.SaveChangesAsync();
 				return true;
+
+			}catch(DbUpdateConcurrencyException)
+			{
+				return false;
 			}
 			catch
 			{
@@ -117,21 +131,42 @@ namespace Blog.Infraestructure.Presistance.Core
 		}
 		public override async Task<bool> DeleteAsync(int id )
 		{
-			TEntity entityToBeDeleted = await _entities.FindAsync(id);
+			try
+			{
+				TEntity entityToBeDeleted = await _entities.FindAsync(id);
 
-			if (entityToBeDeleted == null) return false;
+				if (entityToBeDeleted == null) return false;
 
-			entityToBeDeleted.IsDeleted = true;
+				entityToBeDeleted.IsDeleted = true;
 
-			entityToBeDeleted.DeleteTime = DateTime.UtcNow;
+				entityToBeDeleted.DeleteTime = DateTime.UtcNow;
 
-			_entities.Attach(entityToBeDeleted);
+                EntityEntry<TEntity> entry = _entities.Entry(entityToBeDeleted);
 
-			_entities.Entry(entityToBeDeleted).State = EntityState.Modified;
+                if (entry.OriginalValues["RowVersion"] == null)
+                    throw new InvalidOperationException("Row version is not available for concurrency change");
 
-		    await _context.SaveChangesAsync();
+                byte[] currentRowVersion = entry.Entity.RowVersion;
 
-			return true;
+                entry.OriginalValues["RowVersion"] = currentRowVersion;
+
+                _entities.Attach(entityToBeDeleted);
+
+				entry.State = EntityState.Modified;
+
+				await _context.SaveChangesAsync();
+
+				return true;
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				return false;
+			}
+			catch
+			{
+				return false;
+			}
+		
 
 		}
 	}

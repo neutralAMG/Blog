@@ -5,9 +5,9 @@ namespace Blog.Core.Domain.Entities
 {
 	public class UserList : BaseEntity
 	{
-		public string Name { get; set; }
+		public required string Name { get; set; }
 		public string? Description { get; set; }
-		public string UserId { get; set; }
-		public IList<PostList> Posts { get; set; }
+		public required string UserId { get; set; }
+		public ICollection<PostList>? Posts { get; set; }
 	}
 }

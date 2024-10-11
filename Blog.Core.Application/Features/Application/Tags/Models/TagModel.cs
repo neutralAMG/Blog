@@ -1,5 +1,4 @@
 ﻿
-using System.ComponentModel.DataAnnotations;
 
 namespace Blog.Core.Application.Features.Application.Tags.Models
 {

@@ -1,11 +1,16 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Blog.Infraestructure.Identity.Core
 {
 	public class BaseEntity
 	{
 		public int Id { get; set; }
-		public DateTime DateCreated { get; set; }	
+		public DateTime DateCreated { get; set; }
+
+		[Timestamp]
+		public byte[] RowVersion { get; set; }
 	}
 	public interface IBaseUpdateAuditEntity
 	{

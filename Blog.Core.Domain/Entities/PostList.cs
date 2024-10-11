@@ -7,8 +7,8 @@ namespace Blog.Core.Domain.Entities
 {
      public class PostList : BaseEntity
 	{
-		public int UserListId { get; set; }
-		public int PostId {  get; set; }
+		public required int UserListId { get; set; }
+		public required int PostId {  get; set; }
 		[ForeignKey("UserListId")]
 		public UserList UserList {  get; set; }
 		[ForeignKey("PostId")]
