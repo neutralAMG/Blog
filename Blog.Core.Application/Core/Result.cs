@@ -51,14 +51,14 @@ namespace Blog.Core.Application.Core
 		/// </summary>
 		/// <param name="message"></param>
 		/// <returns></returns>
-		public static Result Success(string message) => new(message);
+		public static Result Success(string message = "Operation was completed successfully") => new(message);
 		/// <summary>
 		/// Return's a result for a failed operation
 		/// </summary>
 		/// <param name="message"></param>
 		/// <param name="errorTypess"></param>
 		/// <returns></returns>
-		public static Result Failure(string message, ErrorTypess errorTypess) => new(message, errorTypess);
+		public static Result Failure(ErrorTypess errorTypess, string message = "Error while doing the operation") => new(message, errorTypess);
 	}
 
 
@@ -133,7 +133,7 @@ namespace Blog.Core.Application.Core
 		/// <param name="message"></param>
 		/// <param name="data"></param>
 		/// <returns></returns>
-		public static Result<TData> Success(string message, TData data) => new(message, data);
+		public static Result<TData> Success(TData data, string message = "Operation was completed successfully") => new(message, data);
 
 		/// <summary>
 		/// Return's a result set to a failure state
@@ -141,7 +141,7 @@ namespace Blog.Core.Application.Core
 		/// <param name="message"></param>
 		/// <param name="errorTypess"></param>
 		/// <returns></returns>
-		public static Result<TData> Failure(string message, ErrorTypess errorTypess) => new(message, errorTypess);
+		public static Result<TData> Failure(ErrorTypess errorTypess , string message = "Error while doing the operation") => new(message, errorTypess);
 
 		public static implicit operator Result<TData>(TData data) => new("Operation was completed succesfullty", data);
 

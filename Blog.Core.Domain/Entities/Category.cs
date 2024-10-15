@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Blog.Core.Domain.Entities
 {
-	public class Category : BaseEntity , IBaseUpdateAuditEntity , IBaseSoftDeleteEntity
+    public class Category : BaseEntity , IBaseUpdateAuditEntity , IBaseSoftDeleteEntity
 	{
         [StringLength(70)]
         public required string Name { get; set; }

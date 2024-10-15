@@ -37,6 +37,9 @@ namespace Blog.Infraestructure.Presistance.Context
 		{
 			
 			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.AddCategoryDbConfiguration();
+
 			modelBuilder.Entity<UserBlog>(b =>{
 				b.HasKey(b => b.Id);
 			});

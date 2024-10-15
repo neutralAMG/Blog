@@ -12,7 +12,7 @@ namespace Blog.Core.Application.Extensions
 		/// <param name="errors"></param>
 		/// <param name="errorMessage"></param>
 		/// <returns></returns>
-		public static Result Because(this ErrorTypess errors, string errorMessage) => Result.Failure(errorMessage, errors);
+		public static Result Because(this ErrorTypess errors, string errorMessage) => Result.Failure(errors,errorMessage);
 
 
 
