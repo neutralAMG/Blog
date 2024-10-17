@@ -7,9 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Dtos\**" />
     <Compile Remove="Features\Application\Blogs\Dtos\**" />
+    <Compile Remove="Interfaces\Contracts\**" />
+    <Compile Remove="Models\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Dtos\**" />
     <EmbeddedResource Remove="Features\Application\Blogs\Dtos\**" />
+    <EmbeddedResource Remove="Interfaces\Contracts\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Dtos\**" />
     <None Remove="Features\Application\Blogs\Dtos\**" />
+    <None Remove="Interfaces\Contracts\**" />
+    <None Remove="Models\**" />
+    <None Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,18 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\Identity\" />
-    <Folder Include="Dtos\Persistance\" />
     <Folder Include="Features\Application\Blogs\BlogCategories\Models\" />
     <Folder Include="Features\Application\Blogs\BlogFavorites\Models\" />
     <Folder Include="Features\Application\Pots\PostLikes\Models\" />
     <Folder Include="Features\Application\Pots\PostTags\Models\" />
-    <Folder Include="Interfaces\Contracts\Identity\" />
-    <Folder Include="Interfaces\Contracts\Persistance\" />
     <Folder Include="Interfaces\Repositories\Identity\" />
-    <Folder Include="Models\" />
-    <Folder Include="Services\Identity\" />
-    <Folder Include="Services\Persistance\" />
   </ItemGroup>
 
   <ItemGroup>
