@@ -10,13 +10,8 @@ namespace Blog.Core.Application.Features.Application.Tags
 {
     public class TagService : BaseCompleteService<SaveTagModel, TagModel, Tag>, ITagService
     {
-        private readonly ITagRepository _tagRepository;
-        private readonly IMapper _mapper;
-
         public TagService(ITagRepository tagRepository, IMapper mapper) : base(tagRepository, mapper)
         {
-            _tagRepository = tagRepository;
-            _mapper = mapper;
         }
     }
 }

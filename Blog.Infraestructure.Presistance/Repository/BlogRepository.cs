@@ -18,14 +18,14 @@ namespace Blog.Infraestructure.Presistance.Repository
 
 		public override async Task<List<UserBlog>> GetAllAsync()
 		{
-			return  await _context.UserBlogs.AsSplitQuery()
+			return  await _context.UserBlogs.AsNoTracking().AsSplitQuery()
 				.Include(b => b.BlogFavorites)
 				.Include(b => b.BlogCategories).ToListAsync();
 		}
 
 		public async Task<List<UserBlog>> GetByCaregoryIdAsync(int categoryId)
 		{
-			return await _context.UserBlogs.AsSplitQuery()
+			return await _context.UserBlogs.AsNoTracking().AsSplitQuery()
 				.Include(b => b.BlogFavorites)
 				.Include(b => b.BlogCategories)
 				.Where(b => b.BlogCategories
@@ -34,7 +34,7 @@ namespace Blog.Infraestructure.Presistance.Repository
 
 		public override async Task<UserBlog> GetByIdAsync(int id)
 		{
-			return await _context.UserBlogs.AsSplitQuery()
+			return await _context.UserBlogs.AsNoTracking().AsSplitQuery()
 				.Include(b => b.BlogFavorites)
 				.Include(b => b.BlogCategories)
 				.Include(b => b.Posts).FirstOrDefaultAsync(b => b.Id == id,default);
@@ -42,7 +42,7 @@ namespace Blog.Infraestructure.Presistance.Repository
 
 		public override IQueryable<UserBlog> GetQueribleEntity()
 		{
-			return _context.UserBlogs.AsSplitQuery()
+			return _context.UserBlogs.AsNoTracking().AsSplitQuery()
 				.Include(b => b.BlogFavorites)
 				.Include(b => b.BlogCategories)
 				.Include(b => b.Posts);
@@ -50,7 +50,7 @@ namespace Blog.Infraestructure.Presistance.Repository
 
 		public async Task<List<UserBlog>> GetUserBlogAsync(string userId)
 		{
-			return await _context.UserBlogs.AsSplitQuery()
+			return await _context.UserBlogs.AsNoTracking().AsSplitQuery()
 				.Include(b => b.BlogFavorites)
 				.Include(b => b.BlogCategories)
 				.Include(b => b.Posts).Where(b => b.UserId == userId).ToListAsync();

@@ -17,28 +17,28 @@ namespace Blog.Infraestructure.Presistance.Repository
 
 		public override async Task<List<Comment>> GetAllAsync()
 		{
-			return await _context.Comments.AsSplitQuery()
+			return await _context.Comments.AsNoTracking().AsSplitQuery()
 				.Include(c => c.CommentsReplies)
 				.Include(c => c.CommentLikes).OrderByDescending(c => c.DateCreated).ToListAsync();
 		}
 
 		public override async Task<Comment> GetByIdAsync(int id)
 		{
-			return await _context.Comments.AsSplitQuery()
+			return await _context.Comments.AsNoTracking().AsSplitQuery()
 				.Include(c => c.CommentsReplies)
 				.Include(c => c.CommentLikes).FirstOrDefaultAsync(c => c.Id == id);
 		}
 
         public async Task<List<Comment>> GetCommentsByPostId(int postId)
         {
-            return await _context.Comments.AsSplitQuery()
+            return await _context.Comments.AsNoTracking().AsSplitQuery()
             .Include(c => c.CommentsReplies)
             .Include(c => c.CommentLikes).Where(c => c.PostId == postId).OrderByDescending(c => c.DateCreated).ToListAsync();
         }
 
         public override IQueryable<Comment> GetQueribleEntity()
 		{
-			return _context.Comments.AsSplitQuery()
+			return _context.Comments.AsNoTracking().AsSplitQuery()
 				.Include(c => c.CommentsReplies)
 				.Include(c => c.CommentLikes)
 				.OrderByDescending(c => c.DateCreated);

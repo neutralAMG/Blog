@@ -2,7 +2,8 @@
 
 using AutoMapper;
 using Blog.Core.Application.Extensions;
-using Blog.Core.Application.Utls.Enums;
+using Blog.Core.Application.Utls;
+using Blog.Core.Domain.Enums;
 using Blog.Infraestructure.Identity.Core;
 
 namespace Blog.Core.Application.Core
@@ -31,7 +32,7 @@ namespace Blog.Core.Application.Core
 				bool isOperationASuccess = await _baseRepository.SaveAsync(entityToBeSaved);
 
 				return !isOperationASuccess ? ErrorTypess.OperationFaild.Because("Error while trying to save the entity") :
-					Result.Success("The entity was saved successfully");
+					Result.Success(ResultMessages.DefaultMessages.Add_Success);
 			}
 			catch
 			{

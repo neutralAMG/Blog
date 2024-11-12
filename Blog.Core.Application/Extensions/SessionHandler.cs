@@ -1,14 +1,12 @@
-﻿
+﻿using Microsoft.AspNetCore.Http;
 
-using Microsoft.AspNetCore.Http;
-
-namespace Blog.Core.Application.Utls.SessionHandler
+namespace Blog.Core.Application.Extensions
 {
     public static class SessionHandler
     {
         public static void Set<TValue>(this ISession session, string key, TValue value)
         {
-            string valueToBeSave = System.Text.Json.JsonSerializer.Serialize<TValue>(value);
+            string valueToBeSave = System.Text.Json.JsonSerializer.Serialize(value);
             session.SetString(key, valueToBeSave);
         }
         public static TValue Get<TValue>(this ISession session, string key)

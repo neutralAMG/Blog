@@ -18,14 +18,14 @@ namespace Blog.Infraestructure.Presistance.Repository
 
 		public override async Task<List<UserList>> GetAllAsync()
 		{
-			return await _context.UserLists.AsSplitQuery()
+			return await _context.UserLists.AsNoTracking()
 				.Include(u => u.Posts).ToListAsync();
 		}
 
 		public override async Task<UserList> GetByIdAsync(int id)
 		{
-			return await _context.UserLists.AsSplitQuery()
-				.Include(u => u.Posts).FirstOrDefaultAsync(u => u.Id == id);
+			return await _context.UserLists.AsNoTracking()
+                .Include(u => u.Posts).FirstOrDefaultAsync(u => u.Id == id);
 		}
 
 		public override IQueryable<UserList> GetQueribleEntity()

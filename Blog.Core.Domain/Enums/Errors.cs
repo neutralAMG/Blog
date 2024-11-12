@@ -1,6 +1,6 @@
 ﻿
 
-namespace Blog.Core.Application.Utls.Enums
+namespace Blog.Core.Domain.Enums
 {
 	public enum ErrorTypess
 	{

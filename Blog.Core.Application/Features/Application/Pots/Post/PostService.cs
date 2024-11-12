@@ -4,12 +4,12 @@ using Blog.Core.Application.Extensions;
 using Blog.Core.Application.Features.Application.Pots.Pots.Interfaces;
 using Blog.Core.Application.Features.Application.Pots.Pots.Models;
 using Blog.Core.Application.Features.Users.Account.Dto;
-using Blog.Core.Application.Utls.Enums;
-using Blog.Core.Application.Utls.SessionHandler;
+using Blog.Core.Domain.Enums;
 using Blog.Core.Domain.Entities;
 using Blog.Core.Domain.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using Blog.Core.Application.Utls;
 
 namespace Blog.Core.Application.Features.Application.Pots.Pots
 {
@@ -17,19 +17,20 @@ namespace Blog.Core.Application.Features.Application.Pots.Pots
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
+        private readonly SessionManager _sessionManager;
         private readonly AuthenticationResponce _currentUserInfo;
 
-        public PostService(IPostRepository postRepository, IMapper mapper, ISession session, IOptions<SessionKeys> sessionKeys) : base(postRepository, mapper)
+        public PostService(IPostRepository postRepository, IMapper mapper, SessionManager sessionManager) : base(postRepository, mapper)
         {
             _postRepository = postRepository;
             _mapper = mapper;
-            _currentUserInfo = session.Get<AuthenticationResponce>(sessionKeys.Value.UserKey);
+            _sessionManager = sessionManager;
         }
 
         public async override Task<Result> SaveAsync(SavePostModel saveModel)
         {
-            if (_currentUserInfo == null)
-                return ErrorTypess.NoAutenticated.Because("there is no user log in");
+            if (!_sessionManager.IsTheUserInSession())
+                return ErrorTypess.NoAutenticated.Because("there is no user loged in");
 
             return await base.SaveAsync(saveModel);
         }

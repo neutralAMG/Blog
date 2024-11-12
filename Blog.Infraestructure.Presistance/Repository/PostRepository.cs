@@ -17,7 +17,7 @@ namespace Blog.Infraestructure.Presistance.Repository
 
 		public override async Task<List<Post>> GetAllAsync()
 		{
-			return await _context.Post.AsSplitQuery()
+			return await _context.Post.AsNoTracking().AsSplitQuery()
 				.Include(p => p.PostTags)
 				.Include(p => p.PostLikes)
 				.Include(p => p.Blog).ToListAsync();
@@ -25,7 +25,7 @@ namespace Blog.Infraestructure.Presistance.Repository
 
 		public override async Task<Post> GetByIdAsync(int id)
 		{
-			return _context.Post.AsSplitQuery()
+			return _context.Post.AsNoTracking().AsSplitQuery()
 				.Include(p => p.PostTags)
 				.Include(p => p.PostLikes)
 				.Include(p => p.Comments)
@@ -34,7 +34,7 @@ namespace Blog.Infraestructure.Presistance.Repository
 
 		public async Task<List<Post>> GetByTagIdAsync(int tagId)
 		{
-			return await _context.Post.AsSplitQuery()
+			return await _context.Post.AsNoTracking().AsSplitQuery()
 				.Include(p => p.PostTags)
 				.Include(p => p.PostLikes)
 				.Include(p => p.Blog)
@@ -43,7 +43,7 @@ namespace Blog.Infraestructure.Presistance.Repository
 
 		public override  IQueryable<Post> GetQueribleEntity()
 		{
-			return  _context.Post.AsSplitQuery()
+			return  _context.Post.AsNoTracking().AsSplitQuery()
 				.Include(p => p.PostTags)
 				.Include(p => p.PostLikes)
 				.Include(p => p.Blog);

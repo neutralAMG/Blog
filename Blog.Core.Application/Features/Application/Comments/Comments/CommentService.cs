@@ -5,7 +5,7 @@ using Blog.Core.Application.Core;
 using Blog.Core.Application.Extensions;
 using Blog.Core.Application.Features.Application.Comments.Comments.Interfaces;
 using Blog.Core.Application.Features.Application.Comments.Comments.Models;
-using Blog.Core.Application.Utls.Enums;
+using Blog.Core.Domain.Enums;
 using Blog.Core.Domain.Entities;
 
 namespace Blog.Core.Application.Features.Application.Comments.Comments

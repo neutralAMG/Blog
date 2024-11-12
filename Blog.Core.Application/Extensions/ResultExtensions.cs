@@ -1,5 +1,5 @@
 ﻿using Blog.Core.Application.Core;
-using Blog.Core.Application.Utls.Enums;
+using Blog.Core.Domain.Enums;
 
 
 namespace Blog.Core.Application.Extensions
