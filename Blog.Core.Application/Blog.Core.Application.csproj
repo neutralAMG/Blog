@@ -9,20 +9,14 @@
   <ItemGroup>
     <Compile Remove="Dtos\**" />
     <Compile Remove="Features\Application\Blogs\Dtos\**" />
-    <Compile Remove="Interfaces\Contracts\**" />
-    <Compile Remove="Interfaces\Repositories\Identity\**" />
     <Compile Remove="Models\**" />
     <Compile Remove="Services\**" />
     <EmbeddedResource Remove="Dtos\**" />
     <EmbeddedResource Remove="Features\Application\Blogs\Dtos\**" />
-    <EmbeddedResource Remove="Interfaces\Contracts\**" />
-    <EmbeddedResource Remove="Interfaces\Repositories\Identity\**" />
     <EmbeddedResource Remove="Models\**" />
     <EmbeddedResource Remove="Services\**" />
     <None Remove="Dtos\**" />
     <None Remove="Features\Application\Blogs\Dtos\**" />
-    <None Remove="Interfaces\Contracts\**" />
-    <None Remove="Interfaces\Repositories\Identity\**" />
     <None Remove="Models\**" />
     <None Remove="Services\**" />
   </ItemGroup>
@@ -32,10 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Application\Blogs\BlogCategories\Models\" />
-    <Folder Include="Features\Application\Blogs\BlogFavorites\Models\" />
     <Folder Include="Features\Application\Pots\PostLikes\Models\" />
     <Folder Include="Features\Application\Pots\PostTags\Models\" />
+    <Folder Include="Features\Application\UserData\UserFollow\Models\" />
+    <Folder Include="Features\Application\UserData\UserList\Models\" />
   </ItemGroup>
 
   <ItemGroup>

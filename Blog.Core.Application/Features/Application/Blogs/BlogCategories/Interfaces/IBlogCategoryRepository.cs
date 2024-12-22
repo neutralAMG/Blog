@@ -5,6 +5,6 @@ namespace Blog.Core.Application.Features.Application.Blogs.BlogCategories.Interf
 {
     public interface IBlogCategoryRepository : IBaseRepository<BlogCategory>
     {
-
+        Task<bool> DeleteAsync(int blogId, int categoryId);
     }
 }

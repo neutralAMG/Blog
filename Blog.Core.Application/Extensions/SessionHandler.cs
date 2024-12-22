@@ -5,14 +5,14 @@ namespace Blog.Core.Application.Extensions
 {
     public static class SessionHandler
     {
-        public static void Set<TValue>(this IHttpContextAccessor httpContext, string key, TValue value)
+        public static void Set<TValue>(this ISession session, string key, TValue value)
         {
             string valueToBeSave = System.Text.Json.JsonSerializer.Serialize(value);
-            httpContext.HttpContext.Session.SetString(key, valueToBeSave);
+            session.SetString(key, valueToBeSave);
         }
-        public static TValue Get<TValue>(this IHttpContextAccessor httpContext, string key)
+        public static TValue Get<TValue>(this ISession session, string key)
         {
-            string valueInSession = httpContext.HttpContext.Session.GetString(key);
+            string valueInSession = session.GetString(key);
             TValue DeserializedValue = System.Text.Json.JsonSerializer.Deserialize<TValue>(valueInSession);
 
             return DeserializedValue == null ? default : DeserializedValue;

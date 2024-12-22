@@ -20,10 +20,8 @@ namespace Blog.Infraestructure.Presistance.Core
 			_context = context;
 			_entities = _context.Set<TEntity>();
 		}
-		public virtual async Task<bool> ExitsAsync(Expression<Func<TEntity, bool>> filter)
-		{
-			return await _entities.AnyAsync(filter);
-		}
+		public virtual async Task<bool> ExitsAsync(Expression<Func<TEntity, bool>> filter) => await _entities.AnyAsync(filter);
+
 
 		public virtual async Task<bool> SaveAsync(TEntity entity)
 		{
@@ -73,33 +71,22 @@ namespace Blog.Infraestructure.Presistance.Core
 			_entities = _context.Set<TEntity>();
 		}
 
-		public virtual async Task<List<TEntity>> GetAllAsync()
-		{	
-			return await _entities.ToListAsync();
-		}
+		public virtual async Task<List<TEntity>> GetAllAsync() =>  await _entities.ToListAsync();
+	
 
-		public virtual async Task<TEntity> GetByIdAsync(int id)
-		{
-			return await _entities.FindAsync(id);
-		}
+		public virtual async Task<TEntity> GetByIdAsync(int id) =>  await _entities.FindAsync(id);
 
-		public virtual IQueryable<TEntity> GetQueribleEntity()
-		{
-			return _entities;
-		}
+
+		public virtual IQueryable<TEntity> GetQueribleEntity() =>  _entities;
+
 
 		public virtual async Task<bool> UpdateAsync(TEntity entity)
 		{
 			try
 			{
+				entity.LastUpdateDate = DateTime.UtcNow;
 				EntityEntry<TEntity> entry = _entities.Entry(entity);
 
-				if (entry.OriginalValues["RowVersion"] == null)
-					throw new InvalidOperationException("Row version is not available for concurrency change");
-
-				byte[] currentRowVersion = entry.Entity.RowVersion;
-
-                entry.OriginalValues["RowVersion"] = currentRowVersion;
 
 				_entities.Attach(entity);
                 entry.State = EntityState.Modified;
@@ -143,12 +130,6 @@ namespace Blog.Infraestructure.Presistance.Core
 
                 EntityEntry<TEntity> entry = _entities.Entry(entityToBeDeleted);
 
-                if (entry.OriginalValues["RowVersion"] == null)
-                    throw new InvalidOperationException("Row version is not available for concurrency change");
-
-                byte[] currentRowVersion = entry.Entity.RowVersion;
-
-                entry.OriginalValues["RowVersion"] = currentRowVersion;
 
                 _entities.Attach(entityToBeDeleted);
 

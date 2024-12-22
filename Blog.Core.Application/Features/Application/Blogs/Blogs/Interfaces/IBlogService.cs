@@ -7,5 +7,7 @@ namespace Blog.Core.Application.Features.Application.Blogs.Blogs.Interfaces
     {
         Task<Result<List<BlogModel>>> GetByCaregoryId(int categoryId);
         Task<Result<List<BlogModel>>> GetUserBlogAsync(string userId);
+        Task<Result> AddOrUnAddBlogToFavorite(string UserId, int blogId);
+        Task<Result> AddOrUnAddCategoryToBlog(int categoryId, int blogId);
     }
 }

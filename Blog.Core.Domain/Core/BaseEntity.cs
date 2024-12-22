@@ -8,14 +8,11 @@ namespace Blog.Infraestructure.Identity.Core
 	{
 		public int Id { get; set; }
 		public DateTime DateCreated { get; set; }
-
-		[Timestamp]
-		public byte[] RowVersion { get; set; }
-	}
+        public DateTime LastUpdateDate { get; set; }
+    }
 	public interface IBaseUpdateAuditEntity
 	{
         public string LastUpdatedBy { get; set; }
-        public DateTime LastUpdateDate { get; set; }
     }
 	public interface IBaseSoftDeleteEntity
 	{

@@ -5,5 +5,6 @@ namespace Blog.Core.Application.Features.Application.Blogs.BlogFavorites.Interfa
 {
     public interface IBlogFavoriteRepository : IBaseRepository<BlogFavorite>
     {
+        Task<bool> DeleteAsync(string userId, int blogId);
     }
 }

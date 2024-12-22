@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Presentation.WebApp", "Blog\Blog.Presentation.WebApp.csproj", "{1A188B40-3097-402A-8BF7-56D2BDA6B7E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Presentation.WebApp", "Blog\Blog.Presentation.WebApp.csproj", "{1A188B40-3097-402A-8BF7-56D2BDA6B7E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{83317DF8-9915-4E69-BB7B-22BE891EE69F}"
 EndProject
@@ -17,15 +17,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{07E6F2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestructure", "Infraestructure", "{0247F7CC-23C7-462E-8FED-7A2C40CD9981}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Infraestructure.Presistance", "Blog.Infraestructure.Presistance\Blog.Infraestructure.Presistance.csproj", "{28C153EC-33D9-44EE-9B1B-DCA348290494}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Infraestructure.Presistance", "Blog.Infraestructure.Presistance\Blog.Infraestructure.Presistance.csproj", "{28C153EC-33D9-44EE-9B1B-DCA348290494}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Infraestructure.Identity", "Blog.Infraestructure.Identity\Blog.Infraestructure.Identity.csproj", "{B36C095F-40BC-4C2F-8AB4-747771611C35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Infraestructure.Identity", "Blog.Infraestructure.Identity\Blog.Infraestructure.Identity.csproj", "{B36C095F-40BC-4C2F-8AB4-747771611C35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Core.Application", "Blog.Core.Application\Blog.Core.Application.csproj", "{C0CE4A25-DE70-422E-874D-5FA533704D9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Core.Application", "Blog.Core.Application\Blog.Core.Application.csproj", "{C0CE4A25-DE70-422E-874D-5FA533704D9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Core.Domain", "Blog.Core.Domain\Blog.Core.Domain.csproj", "{2329832E-5EB5-403D-8A02-431CBE89064D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Core.Domain", "Blog.Core.Domain\Blog.Core.Domain.csproj", "{2329832E-5EB5-403D-8A02-431CBE89064D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Presentation.WebApi", "Blog.Presentation.WebApi\Blog.Presentation.WebApi.csproj", "{0C1E2ACB-884E-416F-A39C-FAAC80D22E0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Presentation.WebApi", "Blog.Presentation.WebApi\Blog.Presentation.WebApi.csproj", "{0C1E2ACB-884E-416F-A39C-FAAC80D22E0A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D71C8581-6F32-43FD-B887-0D4C2CFF0CD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "unitTests", "unitTests\unitTests.csproj", "{897288BB-2598-43BE-B8FD-7FF72BF80DEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,10 @@ Global
 		{0C1E2ACB-884E-416F-A39C-FAAC80D22E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C1E2ACB-884E-416F-A39C-FAAC80D22E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C1E2ACB-884E-416F-A39C-FAAC80D22E0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{897288BB-2598-43BE-B8FD-7FF72BF80DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{897288BB-2598-43BE-B8FD-7FF72BF80DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{897288BB-2598-43BE-B8FD-7FF72BF80DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{897288BB-2598-43BE-B8FD-7FF72BF80DEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +81,7 @@ Global
 		{C0CE4A25-DE70-422E-874D-5FA533704D9B} = {2EC0E1DB-C01E-4684-AAC2-612A8377E62F}
 		{2329832E-5EB5-403D-8A02-431CBE89064D} = {2EC0E1DB-C01E-4684-AAC2-612A8377E62F}
 		{0C1E2ACB-884E-416F-A39C-FAAC80D22E0A} = {07E6F204-0B0F-4266-853F-453C7A2C55AB}
+		{897288BB-2598-43BE-B8FD-7FF72BF80DEE} = {D71C8581-6F32-43FD-B887-0D4C2CFF0CD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D1E2658-9B52-4624-B561-FEAB6294CC26}

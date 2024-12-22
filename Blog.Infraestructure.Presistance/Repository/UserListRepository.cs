@@ -1,4 +1,4 @@
-﻿using Blog.Core.Application.Interfaces.Repositories.Persistance;
+﻿using Blog.Core.Application.Features.Application.UserData.UserList.Interfaces;
 using Blog.Core.Domain.Entities;
 using Blog.Infraestructure.Presistance.Context;
 using Blog.Infraestructure.Presistance.Core;
@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Infraestructure.Presistance.Repository
 {
-	public class UserListRepository : BaseCompleteRepository<UserList>, IUserListRepository
+    public class UserListRepository : BaseCompleteRepository<UserList>, IUserListRepository
 	{
 		private readonly ApplicationContext _context;
 

@@ -14,7 +14,6 @@ namespace Blog.Core.Domain.Entities
         public string? DeletedBy { get; set; }
         public DateTime DeleteTime { get; set; }
 		public string? LastUpdatedBy { get; set; }
-		public DateTime LastUpdateDate { get; set; }
 
 		[ForeignKey("BlogId")]
         public UserBlog Blog { get; set; }

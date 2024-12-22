@@ -17,12 +17,12 @@ namespace Blog.Core.Application.Utls
             _session = httpContext.HttpContext.Session;
         }
 
-        public void SetItemToSession<Value>(Value value, string key) => _session.Set(key, value);
+        public void SetItemToSession<Value>(Value value, string key) => _session.Set<Value>(key, value);
         public Value? GetItemFromSession<Value>(string key) => _session.Get<Value>(key);
         public bool IsTheRequestedItemInSession(string key) => _session.Get(key) != default;
 
 
-        public void SetUserToSession(AuthenticationResponce value) => _session.Set(_sessionKeys.UserKey, value);
+        public void SetUserToSession(AuthenticationResponce value) => _session.Set<AuthenticationResponce>(_sessionKeys.UserKey, value);
         public AuthenticationResponce? GetUserFromSession() => _session.Get<AuthenticationResponce>(_sessionKeys.UserKey);
         public bool IsTheUserInSession() => _session.Get<AuthenticationResponce>(_sessionKeys.UserKey) != null;
     }
