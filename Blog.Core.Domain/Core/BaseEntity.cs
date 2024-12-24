@@ -1,7 +1,5 @@
 ﻿
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Blog.Infraestructure.Identity.Core
 {
 	public class BaseEntity
