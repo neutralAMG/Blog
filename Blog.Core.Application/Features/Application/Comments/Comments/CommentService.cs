@@ -26,16 +26,9 @@ namespace Blog.Core.Application.Features.Application.Comments.Comments
             if (postId <= 0)
                 return ErrorTypess.ValidationMissMatch.Because("the id was ether empty or invalid");
 
-            try
-            {
                 List<Comment> commentsGetted = await _commentRepository.GetCommentsByPostId(postId);
 
-                return _mapper.Map<List<CommentModel>>(commentsGetted);
-            }
-            catch
-            {
-                return ErrorTypess.Exeption.Because("Critical error while getting the post comments");
-            }
+                return _mapper.MapSafely<List<CommentModel>>(commentsGetted);
         }
     }
 }

@@ -20,10 +20,10 @@ namespace Blog.Core.Application.Features.Application.Blogs.BlogCategories
         public async Task<Result> AddOrUnAddCategoryToBlogAsync(int blogId, int categoryId)
         {
             if (categoryId <= 0)
-                ErrorTypess.ValidationMissMatch.Because("User Id can not be null");
+                ErrorTypess.ValidationMissMatch.Because("Category Id can not be null");
 
             if (blogId <= 0)
-                ErrorTypess.ValidationMissMatch.Because("Book id was empty or invalid");
+                ErrorTypess.ValidationMissMatch.Because("Blog id was empty or invalid");
 
             if (await _blogCategoryRepository.ExitsAsync(b => b.CategoryId == categoryId && b.BlogId == blogId))
             {

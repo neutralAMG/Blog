@@ -21,7 +21,7 @@ namespace Blog.Core.Application.Features.Application.Blogs.BlogFavorites
                 ErrorTypess.ValidationMissMatch.Because("User Id can not be null");
 
             if (blogId <= 0)
-                ErrorTypess.ValidationMissMatch.Because("Book id was empty or invalid");
+                ErrorTypess.ValidationMissMatch.Because("Blog id was empty or invalid");
 
             if (await _blogFavoriteRepository.ExitsAsync(b => b.UserId == userId && b.BlogId == blogId))
             {

@@ -15,11 +15,6 @@ namespace Blog.Infraestructure.Presistance.Repository
         public BlogCategoryRepository(ApplicationContext context) : base(context) => _context = context;
        
 
-        public override Task<bool> DeleteAsync(int id)
-        {
-            return base.DeleteAsync(id);
-        }
-
         public async Task<bool> DeleteAsync(int blogId, int categoryId)
         {
             BlogCategory blogCategoryToDelete = await _context.BlogCategories.FirstOrDefaultAsync(b => b.CategoryId == categoryId && b.BlogId == blogId);

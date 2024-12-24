@@ -68,7 +68,7 @@ namespace Blog.Core.Application.Core
 	/// </summary>
 	/// <typeparam name="TData"></typeparam>
 	public class Result<TData> 
-		where TData : class
+		//where TData : class
 	{
 		/// <summary>
 		/// Base constructure for the result class
