@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Blog.Core.Application.Features.Application.Blogs.BlogFavorites.Interfaces;
 using Blog.Core.Application.Features.Application.Blogs.BlogCategories.Interfaces;
+using Blog.Core.Application.Utls;
 
 
 namespace Blog.Core.Application.Features.Application.Blogs.Blogs
@@ -22,23 +23,37 @@ namespace Blog.Core.Application.Features.Application.Blogs.Blogs
         private readonly IMapper _mapper;
         private readonly IBlogFavoriteService _blogFavoriteService;
         private readonly IBlogCategoryService _blogCategoryService;
-        private readonly AuthenticationResponce _currentUserInfo;
+        private readonly SessionManager _sessionManager;
 
-        public BlogService(IBlogRepository blogRepository, IMapper mapper, IBlogFavoriteService blogFavoriteService, IBlogCategoryService blogCategoryService, ISession session, IOptions<SessionKeys> sessionKeys) : base(blogRepository, mapper)
+        public BlogService(IBlogRepository blogRepository, IMapper mapper, IBlogFavoriteService blogFavoriteService, IBlogCategoryService blogCategoryService, SessionManager sessionManager) : base(blogRepository, mapper)
         {
             _blogRepository = blogRepository;
             _mapper = mapper;
             _blogFavoriteService = blogFavoriteService;
             _blogCategoryService = blogCategoryService;
-            _currentUserInfo = session.Get<AuthenticationResponce>(sessionKeys.Value.UserKey);
-        }
+            _sessionManager = sessionManager;
 
+        }
+        public override async Task<Result> UpdateAsync(SaveBlogModel entity)
+        {
+            if (!await _blogRepository.ExitsAsync(b => b.Id == entity.Id && b.UserId == _sessionManager.GetUserFromSession().Id))
+                return ErrorTypess.NoAuthorize.Because("The blog being updated does not belogn to the current user");
+
+            return await base.UpdateAsync(entity);
+        }
+        public override async Task<Result> DeleteAsync(int id)
+        {
+            if (!await _blogRepository.ExitsAsync(b => b.Id == id && b.UserId == _sessionManager.GetUserFromSession().Id))
+                return ErrorTypess.NoAuthorize.Because("The blog being updated does not belogn to the current user");
+
+            return await base.DeleteAsync(id);
+        }
         public async override Task<Result> SaveAsync(SaveBlogModel saveModel)
         {
-            if (_currentUserInfo == null)
+            if (_sessionManager.GetUserFromSession() == null)
                 return ErrorTypess.NoAutenticated.Because("There is no user log in");
 
-            saveModel.UserId = _currentUserInfo.Id;
+            saveModel.UserId = _sessionManager.GetUserFromSession().Id;
             return await base.SaveAsync(saveModel);
         }
         public async Task<Result<List<BlogModel>>> GetByCaregoryId(int categoryId)

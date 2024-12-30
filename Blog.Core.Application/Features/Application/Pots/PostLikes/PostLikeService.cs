@@ -3,7 +3,6 @@
 using AutoMapper;
 using Blog.Core.Application.Core;
 using Blog.Core.Application.Extensions;
-using Blog.Core.Application.Features.Application.Blogs.BlogFavorites.Interfaces;
 using Blog.Core.Application.Features.Application.Pots.PostLikes.Interfaces;
 using Blog.Core.Application.Features.Application.Pots.PostLikes.Models;
 using Blog.Core.Domain.Entities;

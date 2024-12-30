@@ -21,6 +21,20 @@ namespace Blog.Core.Application.Features.Application.Pots.Pots
             _mapper = mapper;
             _sessionManager = sessionManager;
         }
+        public  override async Task<Result> UpdateAsync(SavePostModel entity)
+        {
+            if (!await _postRepository.ExitsAsync(p => p.Id == entity.Id && p.Blog.UserId == _sessionManager.GetUserFromSession().Id))
+                return ErrorTypess.NoAuthorize.Because("The post being updated does not belogn to the current user");
+
+            return await base.UpdateAsync(entity);
+        }
+        public override async Task<Result> DeleteAsync(int id)
+        {
+            if (!await _postRepository.ExitsAsync(p => p.Id == id && p.Blog.UserId == _sessionManager.GetUserFromSession().Id))
+                return ErrorTypess.NoAuthorize.Because("The post being deleted does not belogn to the current user");
+
+            return await base.DeleteAsync(id);
+        }
 
         public async override Task<Result> SaveAsync(SavePostModel saveModel)
         {

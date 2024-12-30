@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Application\UserData\UserFollow\Models\" />
     <Folder Include="Features\Application\UserData\UserList\Models\" />
   </ItemGroup>
 

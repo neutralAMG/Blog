@@ -46,7 +46,7 @@ namespace Blog.Infraestructure.Presistance.Repository
 
 		public override async Task<bool> UpdateAsync(Comment entity)
 		{
-			if (!await ExitsAsync(c => c.Id == entity.Id)) return false;
+			if (!await ExitsAsync(c => c.Id == entity.Id && c.UserId == entity.UserId)) return false;
 			Comment commentToBeUpdated = await _context.Comments.FindAsync();
 
 			commentToBeUpdated.TextContent = entity.TextContent;
