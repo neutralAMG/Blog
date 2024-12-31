@@ -4,5 +4,7 @@ namespace Blog.Core.Application.Features.Application.Comments.CommentLikes.Model
 {
     public class SaveCommentLikeModel
     {
+        public required string UserId { get; set; }
+        public required int CommentId { get; set; }
     }
 }

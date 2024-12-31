@@ -2,11 +2,8 @@
 using Blog.Core.Domain.Entities;
 using Blog.Infraestructure.Presistance.Context;
 using Blog.Infraestructure.Presistance.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Blog.Infraestructure.Presistance.Repository
 {
@@ -18,5 +15,12 @@ namespace Blog.Infraestructure.Presistance.Repository
 		{
 			_context = context;
 		}
-	}
+
+        public async Task<bool> DeleteAsync(int commentId, string userId)
+        {
+            CommentLike commentLikeToDelete = await _context.CommentLikes.FirstOrDefaultAsync(c => c.CommentId == commentId && c.UserId == userId);
+
+            return commentLikeToDelete != null ? await base.DeleteAsync(commentLikeToDelete.Id) : false;
+        }
+    }
 }

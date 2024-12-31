@@ -24,14 +24,14 @@ namespace Blog.Core.Application.Features.Application.Pots.Pots
         public  override async Task<Result> UpdateAsync(SavePostModel entity)
         {
             if (!await _postRepository.ExitsAsync(p => p.Id == entity.Id && p.Blog.UserId == _sessionManager.GetUserFromSession().Id))
-                return ErrorTypess.NoAuthorize.Because("The post being updated does not belogn to the current user");
+                return ErrorTypess.NoAuthorize.Because("The post being updated does not belong to the current user");
 
             return await base.UpdateAsync(entity);
         }
         public override async Task<Result> DeleteAsync(int id)
         {
             if (!await _postRepository.ExitsAsync(p => p.Id == id && p.Blog.UserId == _sessionManager.GetUserFromSession().Id))
-                return ErrorTypess.NoAuthorize.Because("The post being deleted does not belogn to the current user");
+                return ErrorTypess.NoAuthorize.Because("The post being deleted does not belong to the current user");
 
             return await base.DeleteAsync(id);
         }
