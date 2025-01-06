@@ -1,5 +1,4 @@
 ﻿
-
 using AutoMapper;
 using Blog.Core.Application.Extensions;
 using Blog.Core.Application.Utls;
@@ -14,16 +13,20 @@ namespace Blog.Core.Application.Core
     {
         private readonly IBaseRepository<TEntity> _baseRepository;
         private readonly IMapper _mapper;
+        private readonly IModelValidator<TSaveModel> _validator;
 
-        public BaseService(IBaseRepository<TEntity> baseRepository, IMapper mapper)
+        public BaseService(IBaseRepository<TEntity> baseRepository, IMapper mapper, IModelValidator<TSaveModel> validator)
         {
             _baseRepository = baseRepository;
             _mapper = mapper;
+            _validator = validator;
         }
         public virtual async Task<Result> SaveAsync(TSaveModel saveModel)
         {
-            if (saveModel == null)
-                return ErrorTypess.ValidationMissMatch.Because("The entity to be save cant be null");
+            Result ValidationResult = _validator.IsModelValid(saveModel);
+
+            if (!ValidationResult.IsSuccess)
+                return ValidationResult;
 
             Result<TEntity> mapResult = _mapper.MapSafely<TEntity>(saveModel);
 
@@ -34,20 +37,21 @@ namespace Blog.Core.Application.Core
 
             bool isOperationASuccess = await _baseRepository.SaveAsync(entityToBeSaved);
 
-            return !isOperationASuccess ? ErrorTypess.OperationFaild.Because("Error while trying to save the entity") :
-                Result.Success(ResultMessages.DefaultMessages.Add_Success);
+            return !isOperationASuccess 
+                ?  ErrorTypess.OperationFaild.Because("Error while trying to save the entity") 
+                : Result.Success(ResultMessages.DefaultMessages.Add_Success);
 
         }
         public virtual async Task<Result> DeleteAsync(int id)
         {
-
             if (id <= 0)
                 return ErrorTypess.ValidationMissMatch.Because("Id was ether empty or was invalid");
 
             bool IsOperationASuccess = await _baseRepository.DeleteAsync(id);
 
-            return !IsOperationASuccess ? ErrorTypess.OperationFaild.Because("Error while deleteng the entity") :
-                Result.Success("Entity was deleted successfully");
+            return !IsOperationASuccess 
+                ? ErrorTypess.OperationFaild.Because("Error while deleteng the entity") 
+                : Result.Success("Entity was deleted successfully");
         }
 
 
@@ -60,11 +64,13 @@ namespace Blog.Core.Application.Core
     {
         private readonly IBaseCompleteRepository<TEntity> _baseCompleteRepository;
         private readonly IMapper _mapper;
+        private readonly IModelValidator<TSaveModel> _validator;
 
-        public BaseCompleteService(IBaseCompleteRepository<TEntity> baseCompleteRepository, IMapper mapper) : base(baseCompleteRepository, mapper)
+        public BaseCompleteService(IBaseCompleteRepository<TEntity> baseCompleteRepository, IMapper mapper, IModelValidator<TSaveModel> validator) : base(baseCompleteRepository, mapper, validator)
         {
             _baseCompleteRepository = baseCompleteRepository;
             _mapper = mapper;
+            _validator = validator;
         }
 
         public virtual async Task<Result<List<TModel>>> GetAllAsync()
@@ -92,9 +98,10 @@ namespace Blog.Core.Application.Core
 
         public virtual async Task<Result> UpdateAsync(TSaveModel entity)
         {
+            Result validatorResult = _validator.IsModelValid(entity);
 
-            if (entity == null)
-                return ErrorTypess.ValidationMissMatch.Because("the entity to be save cant be empty");
+            if (!validatorResult.IsSuccess)
+                return validatorResult;
 
             Result<TEntity> mapResult = _mapper.MapSafely<TEntity>(entity);
 
@@ -105,8 +112,9 @@ namespace Blog.Core.Application.Core
 
             bool IsUpdateOperationASuccess = await _baseCompleteRepository.UpdateAsync(entityToBeUpdated);
 
-            return !IsUpdateOperationASuccess ? ErrorTypess.OperationFaild.Because("Error while trying to update the entity") :
-                Result.Success("The entity was updated successfully");
+            return !IsUpdateOperationASuccess 
+                ? ErrorTypess.OperationFaild.Because("Error while trying to update the entity") 
+                : Result.Success("The entity was updated successfully");
         }
     }
 }

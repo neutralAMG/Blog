@@ -19,7 +19,9 @@ namespace Blog.Infraestructure.Presistance.Repository
         {
             BlogCategory blogCategoryToDelete = await _context.BlogCategories.FirstOrDefaultAsync(b => b.CategoryId == categoryId && b.BlogId == blogId);
 
-            return blogCategoryToDelete != null ? await base.DeleteAsync(blogCategoryToDelete.Id) : false;
+            return blogCategoryToDelete != null 
+                ? await base.DeleteAsync(blogCategoryToDelete.Id) 
+                : false;
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿
 using AutoMapper;
 using Blog.Core.Application.Core;
-using Blog.Core.Application.Extensions;
-using Blog.Core.Application.Features.Application.Comments.Comments.Interfaces;
+using Blog.Core.Application.Extensions; 
 using Blog.Core.Application.Features.Application.UserData.UserFollow.Interfaces;
 using Blog.Core.Application.Features.Application.UserData.UserFollow.Models;
+using Blog.Core.Application.Features.Application.UserData.UserFollow.Validator;
 using Blog.Core.Application.Utls;
 using Blog.Core.Domain.Enums;
 
@@ -15,7 +15,7 @@ namespace Blog.Core.Application.Features.Application.UserData.UserFollow
         private readonly IUserFollowRepository _userFollowRepository;
         private readonly SessionManager _sessionManager;
 
-        public UserFollowService(IUserFollowRepository userFollowRepository, IMapper mapper, SessionManager sessionManager) : base(userFollowRepository, mapper)
+        public UserFollowService(IUserFollowRepository userFollowRepository, IMapper mapper, UserFollowValidator userFollowValidator,SessionManager sessionManager) : base(userFollowRepository, mapper, userFollowValidator)
         {
             _userFollowRepository = userFollowRepository;
             _sessionManager = sessionManager;

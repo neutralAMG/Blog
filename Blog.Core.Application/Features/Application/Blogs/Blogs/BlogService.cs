@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Blog.Core.Application.Features.Application.Blogs.BlogFavorites.Interfaces;
 using Blog.Core.Application.Features.Application.Blogs.BlogCategories.Interfaces;
 using Blog.Core.Application.Utls;
+using Blog.Core.Application.Features.Application.Blogs.Blogs.Validator;
 
 
 namespace Blog.Core.Application.Features.Application.Blogs.Blogs
@@ -25,7 +26,7 @@ namespace Blog.Core.Application.Features.Application.Blogs.Blogs
         private readonly IBlogCategoryService _blogCategoryService;
         private readonly SessionManager _sessionManager;
 
-        public BlogService(IBlogRepository blogRepository, IMapper mapper, IBlogFavoriteService blogFavoriteService, IBlogCategoryService blogCategoryService, SessionManager sessionManager) : base(blogRepository, mapper)
+        public BlogService(IBlogRepository blogRepository, IMapper mapper, BlogValidator blogValidator,IBlogFavoriteService blogFavoriteService, IBlogCategoryService blogCategoryService, SessionManager sessionManager) : base(blogRepository, mapper, blogValidator)
         {
             _blogRepository = blogRepository;
             _mapper = mapper;

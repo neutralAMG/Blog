@@ -3,6 +3,7 @@ using Blog.Core.Application.Core;
 using Blog.Core.Application.Extensions;
 using Blog.Core.Application.Features.Application.Pots.PostLists.Interfaces;
 using Blog.Core.Application.Features.Application.Pots.PostLists.Models;
+using Blog.Core.Application.Features.Application.Pots.PostLists.Validator;
 using Blog.Core.Domain.Entities;
 using Blog.Core.Domain.Enums;
 
@@ -12,10 +13,12 @@ namespace Blog.Core.Application.Features.Application.Pots.PostLists
     public class PostListService : BaseService<SavePostListModel, PostList>, IPostListService
     {
         private readonly IPostListRepository _postListRepository;
+        private readonly PostListValidator _postListValidator;
 
-        public PostListService(IPostListRepository postListRepository, IMapper mapper) : base(postListRepository, mapper)
+        public PostListService(IPostListRepository postListRepository, IMapper mapper, PostListValidator postListValidator) : base(postListRepository, mapper, postListValidator)
         {
             _postListRepository = postListRepository;
+            _postListValidator = postListValidator;
         }
 
         public async Task<Result> AddOrUnAddPostToListAsync(int postId, int listId)
@@ -28,7 +31,10 @@ namespace Blog.Core.Application.Features.Application.Pots.PostLists
             if (await _postListRepository.ExitsAsync(b => b.PostId == postId && b.UserListId == listId))
             {
                 bool deleteIsSuccess = await _postListRepository.DeleteAsync(postId, listId);
-                return deleteIsSuccess ? Result.Success() : ErrorTypess.OperationFaild.Because("Error while removing a post from the list ");
+
+                return deleteIsSuccess 
+                    ? Result.Success() 
+                    : ErrorTypess.OperationFaild.Because("Error while removing a post from the list ");
             }
 
             return await base.SaveAsync(new()

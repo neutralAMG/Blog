@@ -6,16 +6,17 @@ using Blog.Core.Application.Features.Application.Pots.Pots.Models;
 using Blog.Core.Domain.Enums;
 using Blog.Core.Domain.Entities;
 using Blog.Core.Application.Utls;
+using Blog.Core.Application.Features.Application.Pots.Post.Validator;
 
 namespace Blog.Core.Application.Features.Application.Pots.Pots
 {
-    public class PostService : BaseCompleteService<SavePostModel, PostModel, Post>, IPostService
+    public class PostService : BaseCompleteService<SavePostModel, PostModel, Domain.Entities.Post>, IPostService
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
         private readonly SessionManager _sessionManager;
 
-        public PostService(IPostRepository postRepository, IMapper mapper, SessionManager sessionManager) : base(postRepository, mapper)
+        public PostService(IPostRepository postRepository, IMapper mapper, PostValidator postValidator, SessionManager sessionManager) : base(postRepository, mapper, postValidator)
         {
             _postRepository = postRepository;
             _mapper = mapper;
@@ -48,7 +49,7 @@ namespace Blog.Core.Application.Features.Application.Pots.Pots
             if (tagId <= 0)
                 return ErrorTypess.ValidationMissMatch.Because("the tag id was ether empty or invalid");
 
-            List<Post> potsGetted = await _postRepository.GetByTagIdAsync(tagId);
+            List<Domain.Entities.Post> potsGetted = await _postRepository.GetByTagIdAsync(tagId);
 
             return _mapper.MapSafely<List<PostModel>>(potsGetted);
         }

@@ -16,7 +16,7 @@ namespace Blog.Core.Domain.Entities
         public bool IsDeleted { get; set; }
         public string? DeletedBy { get; set; }
         public DateTime DeleteTime { get; set; }
-        public ICollection<BlogCategory>? BlogCategories { get; set; }
+        public IReadOnlyCollection<BlogCategory>? BlogCategories { get; set; }
 
     }
 }

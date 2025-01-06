@@ -17,9 +17,9 @@ namespace Blog.Core.Domain.Entities
 
 		[ForeignKey("BlogId")]
         public UserBlog Blog { get; set; }
-        public ICollection<Comment>? Comments { get; set; }
-        public ICollection<PostLike>? PostLikes { get; set; }
-        public ICollection<PostList>? PostLists { get; set; }
-        public ICollection<PostTag>? PostTags { get; set; }
+        public IReadOnlyCollection<Comment>? Comments { get; set; }
+        public IReadOnlyCollection<PostLike>? PostLikes { get; set; }
+        public IReadOnlyCollection<PostList>? PostLists { get; set; }
+        public IReadOnlyCollection<PostTag>? PostTags { get; set; }
     }
 }

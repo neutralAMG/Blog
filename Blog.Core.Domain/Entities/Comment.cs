@@ -15,7 +15,7 @@ namespace Blog.Core.Domain.Entities
 		public Comment? ParentComment { get; set; }
 		[ForeignKey("PostId")]
 		public Post Post { get; set; }
-		public ICollection<CommentLike>? CommentLikes { get; set; }
-		public ICollection<Comment>? CommentsReplies { get; set; }
+		public IReadOnlyCollection<CommentLike>? CommentLikes { get; set; }
+		public IReadOnlyCollection<Comment>? CommentsReplies { get; set; }
 	}
 }

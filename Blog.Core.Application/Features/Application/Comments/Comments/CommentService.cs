@@ -1,5 +1,4 @@
 ﻿
-
 using AutoMapper;
 using Blog.Core.Application.Core;
 using Blog.Core.Application.Extensions;
@@ -9,6 +8,7 @@ using Blog.Core.Domain.Enums;
 using Blog.Core.Domain.Entities;
 using Blog.Core.Application.Utls;
 using Blog.Core.Application.Features.Application.Comments.CommentLikes.Interfaces;
+using Blog.Core.Application.Features.Application.Comments.Comments.Validator;
 
 namespace Blog.Core.Application.Features.Application.Comments.Comments
 {
@@ -16,13 +16,15 @@ namespace Blog.Core.Application.Features.Application.Comments.Comments
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
+        private readonly CommentValidator _commentValidator;
         private readonly ICommentLikeService _commentLikeService;
         private readonly SessionManager _sessionManager;
 
-        public CommentService(ICommentRepository commentRepository, IMapper mapper, ICommentLikeService commentLikeService, SessionManager sessionManager) : base(commentRepository, mapper)
+        public CommentService(ICommentRepository commentRepository, IMapper mapper, CommentValidator commentValidator,ICommentLikeService commentLikeService, SessionManager sessionManager) : base(commentRepository, mapper, commentValidator)
         {
             _commentRepository = commentRepository;
             _mapper = mapper;
+            _commentValidator = commentValidator;
             _commentLikeService = commentLikeService;
             _sessionManager = sessionManager;
         }
@@ -52,5 +54,15 @@ namespace Blog.Core.Application.Features.Application.Comments.Comments
         }
 
         public Task<Result> AddOrUnAddLikeToCommentAsync(int commentId, string userId) => _commentLikeService.AddOrUnAddLikeToCommentAsync(userId,commentId);
+
+        public async Task<Result> ReplyAsync(SaveCommentModel saveModel)
+        {
+            if (saveModel.ParentCommentId <= 0)
+                return ErrorTypess.ValidationMissMatch.Because("The comment id being replied to is empty or invalid");
+
+            Result validationResult = _commentValidator.IsModelValid(saveModel);
+
+            return await base.SaveAsync(saveModel);
+        }
     }
 }

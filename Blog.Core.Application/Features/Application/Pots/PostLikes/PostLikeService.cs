@@ -1,10 +1,10 @@
 ﻿
-
 using AutoMapper;
 using Blog.Core.Application.Core;
 using Blog.Core.Application.Extensions;
 using Blog.Core.Application.Features.Application.Pots.PostLikes.Interfaces;
 using Blog.Core.Application.Features.Application.Pots.PostLikes.Models;
+using Blog.Core.Application.Features.Application.Pots.PostLikes.Validator;
 using Blog.Core.Domain.Entities;
 using Blog.Core.Domain.Enums;
 
@@ -14,7 +14,7 @@ namespace Blog.Core.Application.Features.Application.Pots.PostLikes
     {
         private readonly IPostLikeRepository _postLikeRepository;
 
-        public PostLikeService(IPostLikeRepository postLikeRepository, IMapper mapper) : base(postLikeRepository, mapper)
+        public PostLikeService(IPostLikeRepository postLikeRepository, IMapper mapper, PostLikesValidator postLikesValidator) : base(postLikeRepository, mapper, postLikesValidator)
         {
             _postLikeRepository = postLikeRepository;
         }
@@ -30,7 +30,10 @@ namespace Blog.Core.Application.Features.Application.Pots.PostLikes
             if (await _postLikeRepository.ExitsAsync(b => b.UserId == userId && b.PostId == postId))
             {
                 bool deleteIsSuccess = await _postLikeRepository.DeleteAsync(postId,userId);
-                return deleteIsSuccess ? Result.Success() : ErrorTypess.OperationFaild.Because("Error while removing the post like");
+
+                return deleteIsSuccess 
+                    ? Result.Success() 
+                    : ErrorTypess.OperationFaild.Because("Error while removing the post like");
             }
 
             return await base.SaveAsync(new()
